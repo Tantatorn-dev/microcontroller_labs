@@ -20,7 +20,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "string.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -50,6 +49,7 @@ UART_HandleTypeDef huart3;
 // for q3
 char input;
 uint8_t working_loop_flag = 1;
+uint8_t is_1st_time = 1;
 
 /* USER CODE END PV */
 
@@ -61,6 +61,10 @@ static void MX_USART3_UART_Init(void);
 void q1();
 void q2();
 void q3();
+void q4();
+
+void blink_led(GPIO_TypeDef* port, uint16_t pin);
+void send_str(char* str);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -105,7 +109,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  q3();
+	  q4();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -200,9 +204,21 @@ static void MX_USART3_UART_Init(void)
   */
 static void MX_GPIO_Init(void)
 {
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOD_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, D15_Pin|D14_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pins : D15_Pin D14_Pin */
+  GPIO_InitStruct.Pin = D15_Pin|D14_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 }
 
@@ -257,6 +273,67 @@ void q3() {
 	// reset input value
 	input = 0;
 
+	}
+
+}
+
+void q4() {
+
+	if (working_loop_flag){
+
+		while (__HAL_UART_GET_FLAG(&huart3,UART_FLAG_TC)==RESET);
+
+		if(is_1st_time){
+			send_str("Display blinking LED Press (r,g)\r\n");
+			send_str("Display a group member Press m\r\n");
+			send_str("Quit Press q\r\n");
+			is_1st_time = 0;
+		}
+
+		send_str("Input => ");
+
+		// wait for get char
+		while (input == 0) {
+			HAL_UART_Receive(&huart3, &input, sizeof(char), 1000);
+			HAL_Delay(100);
+		}
+
+		// print  the received char
+		char output[10];
+		sprintf(output, "%c\r\n", input);
+		send_str(output);
+
+		if (input == 'r'){
+			blink_led(D14_GPIO_Port,D14_Pin);
+		}
+		else if (input == 'g'){
+			blink_led(D15_GPIO_Port,D15_Pin);
+		}
+		else if (input == 'm'){
+			send_str("61010402\r\nTantatorn Suksangwarn\r\n");
+		}
+		else if (input == 'q'){
+			send_str("\r\nQUIT");
+			working_loop_flag = 0;
+		}
+		else {
+			send_str("Unknown Command\r\n");
+		}
+
+		// reset input value
+		input = 0;
+
+	}
+
+}
+
+void blink_led(GPIO_TypeDef* port, uint16_t pin) {
+
+	for(int i=0;i<3;i++) {
+		HAL_GPIO_TogglePin(port, pin);
+		HAL_Delay(300);
+		HAL_GPIO_TogglePin(port, pin);
+		HAL_Delay(300);
 	}
 
 }

@@ -23,7 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "string.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -109,7 +109,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  q4();
+	  q3();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -249,8 +249,6 @@ void q3() {
 
 	if (working_loop_flag){
 
-	while (__HAL_UART_GET_FLAG(&huart3,UART_FLAG_TC)==RESET);
-
 	send_str("Input => ");
 
 	// wait for get char
@@ -339,6 +337,7 @@ void blink_led(GPIO_TypeDef* port, uint16_t pin) {
 }
 
 void send_str(char* str) {
+	while (__HAL_UART_GET_FLAG(&huart3,UART_FLAG_TC)==RESET);
 	HAL_UART_Transmit(&huart3,(uint8_t*) str, strlen(str), 1000);
 	HAL_Delay(100);
 }

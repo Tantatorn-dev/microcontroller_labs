@@ -113,6 +113,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  adc_val[1]=adc_val[2];
 	  for (int i = 0; i < 8; i++) {
 	  			char tmp[15];
 	  			int len = sprintf(tmp, "%.2f  ", (((double)adc_val[i])/4095.0)*3.3);

@@ -28,9 +28,13 @@ void first_page();
 void draw_color_buttons();
 void draw_progress_bars();
 void draw_color_percent();
+void draw_change_page_button();
 
 // update
 void update_progress_bars();
+
+// utility
+uint16_t remix_color(uint8_t r, uint8_t g, uint8_t b);
 
 #ifdef __cplusplus
 }

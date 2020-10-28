@@ -1,6 +1,8 @@
 gui.c:3:6:GUI_init	8	static
 gui.c:13:6:first_page	8	static
-gui.c:25:6:draw_color_buttons	8	static
-gui.c:33:6:draw_progress_bars	16	static
-gui.c:51:6:draw_color_percent	32	static
-gui.c:66:6:update_progress_bars	8	static
+gui.c:26:6:draw_color_buttons	8	static
+gui.c:34:6:draw_change_page_button	8	static
+gui.c:40:6:draw_progress_bars	16	static
+gui.c:58:6:draw_color_percent	32	static
+gui.c:73:6:update_progress_bars	8	static
+gui.c:118:10:remix_color	16	static

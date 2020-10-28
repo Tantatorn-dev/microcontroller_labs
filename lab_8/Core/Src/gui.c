@@ -13,6 +13,7 @@ void GUI_init() {
 void first_page() {
 
 	// render
+	draw_change_page_button();
 	draw_color_buttons();
 	draw_progress_bars();
 	draw_color_percent();
@@ -27,6 +28,12 @@ void draw_color_buttons() {
 	ILI9341_Draw_Filled_Circle(40, 100, 20, RED);
 	ILI9341_Draw_Filled_Circle(40, 150, 20, GREEN);
 	ILI9341_Draw_Filled_Circle(40, 200, 20, BLUE);
+
+}
+
+void draw_change_page_button(){
+
+	ILI9341_Draw_Filled_Circle(150, 50, 20, remix_color(red_percent, green_percent, blue_percent));
 
 }
 
@@ -52,13 +59,13 @@ void draw_color_percent() {
 
 	char str[10];
 
-	sprintf(str,"%d%%",red_percent);
+	sprintf(str,"%d%%    ",red_percent);
 	ILI9341_Draw_Text(str, 250, 90, BLACK, 3, WHITE);
 
-	sprintf(str,"%d%%",green_percent);
+	sprintf(str,"%d%%    ",green_percent);
 	ILI9341_Draw_Text(str, 250, 140, BLACK, 3, WHITE);
 
-	sprintf(str,"%d%%",blue_percent);
+	sprintf(str,"%d%%    ",blue_percent);
 	ILI9341_Draw_Text(str, 250, 190, BLACK, 3, WHITE);
 
 }
@@ -76,7 +83,6 @@ void update_progress_bars() {
 				red_percent += 10;
 				if (red_percent > 100) {
 					red_percent = 0;
-				//	ILI9341_Draw_Filled_Rectangle_Coord(250, Y0, X1, Y1, Colour)
 				}
 
 
@@ -88,7 +94,6 @@ void update_progress_bars() {
 				green_percent += 10;
 				if (green_percent > 100) {
 					green_percent = 0;
-					ILI9341_Fill_Screen(WHITE);
 				}
 			}
 
@@ -98,7 +103,6 @@ void update_progress_bars() {
 				blue_percent += 10;
 				if (blue_percent > 100) {
 					blue_percent = 0;
-					ILI9341_Fill_Screen(WHITE);
 				}
 			}
 
@@ -109,3 +113,11 @@ void update_progress_bars() {
 	}
 
 }
+
+// r g b in percent
+uint16_t remix_color(uint8_t r, uint8_t g, uint8_t b){
+
+	return (((r*RED)/100) & RED) | (((g*GREEN)/100) & GREEN) | (((b*BLUE)/100) & BLUE);
+
+}
+

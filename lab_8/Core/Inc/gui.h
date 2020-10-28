@@ -8,21 +8,27 @@
 #include "ILI9341_Touchscreen.h"
 #include "ILI9341_STM32_Driver.h"
 #include "ILI9341_GFX.h"
-#include "stdio.h"
 
-#include "main.h"
+#include "stdio.h"
+#include "me.h"
 
 uint8_t red_percent;
 uint8_t green_percent;
 uint8_t blue_percent;
 
+uint8_t page_num;
+
 uint16_t coordinates[2];
+
+uint32_t time;
 
 // initialization
 void GUI_init();
 
 // pages
+void main_system();
 void first_page();
+void second_page();
 
 // render
 void draw_color_buttons();
@@ -32,6 +38,7 @@ void draw_change_page_button();
 
 // update
 void update_progress_bars();
+void update_page();
 
 // utility
 uint16_t remix_color(uint8_t r, uint8_t g, uint8_t b);

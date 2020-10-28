@@ -27,11 +27,6 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "ILI9341_Touchscreen.h"
-#include "ILI9341_STM32_Driver.h"
-#include "ILI9341_GFX.h"
-#include "snow_tiger.h"
-
 #include "gui.h"
 /* USER CODE END Includes */
 
@@ -112,7 +107,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  first_page();
+	  main_system();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

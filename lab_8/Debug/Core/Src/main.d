@@ -33,9 +33,9 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h \
  ../Core/Inc/rng.h ../Core/Inc/main.h ../Core/Inc/spi.h ../Core/Inc/tim.h \
- ../Core/Inc/usart.h ../Core/Inc/gpio.h ../ILI9341/ILI9341_Touchscreen.h \
- ../ILI9341/ILI9341_STM32_Driver.h ../ILI9341/ILI9341_GFX.h \
- ../ILI9341/snow_tiger.h ../Core/Inc/gui.h
+ ../Core/Inc/usart.h ../Core/Inc/gpio.h ../Core/Inc/gui.h \
+ ../ILI9341/ILI9341_Touchscreen.h ../ILI9341/ILI9341_STM32_Driver.h \
+ ../ILI9341/ILI9341_GFX.h ../Core/Inc/me.h
 
 ../Core/Inc/main.h:
 
@@ -117,12 +117,12 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 
 ../Core/Inc/gpio.h:
 
+../Core/Inc/gui.h:
+
 ../ILI9341/ILI9341_Touchscreen.h:
 
 ../ILI9341/ILI9341_STM32_Driver.h:
 
 ../ILI9341/ILI9341_GFX.h:
 
-../ILI9341/snow_tiger.h:
-
-../Core/Inc/gui.h:
+../Core/Inc/me.h:

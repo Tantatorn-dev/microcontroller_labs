@@ -1,6 +1,7 @@
 "Core/Src/gpio.o"
 "Core/Src/gui.o"
 "Core/Src/main.o"
+"Core/Src/me.o"
 "Core/Src/rng.o"
 "Core/Src/spi.o"
 "Core/Src/stm32f7xx_hal_msp.o"

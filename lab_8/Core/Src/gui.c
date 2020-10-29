@@ -1,6 +1,9 @@
 #include "gui.h"
 
 void GUI_init() {
+	HAL_ADC_Start(&hadc1);
+	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
+
 	ILI9341_Init();
 	ILI9341_Set_Rotation(3);
 	ILI9341_Fill_Screen(WHITE);
@@ -23,6 +26,7 @@ void GUI_init() {
 
 void main_system(){
 	get_sensor_value();
+	get_potentiometer_value();
 	if(page_num==1){
 		first_page();
 	}
@@ -43,6 +47,7 @@ void first_page() {
 	// update
 	update_progress_bars();
 	update_page();
+	update_brightness();
 
 }
 
@@ -184,6 +189,14 @@ void update_progress_bars() {
 
 }
 
+void update_brightness(){
+
+	float dutyCycle = potentiometer_val/4095.0;
+	htim2.Instance -> CCR3 = (10000-1) * dutyCycle;
+	pwm = (GPIOB->IDR & GPIO_PIN_10) >> 10;
+
+}
+
 // r g b in percent
 uint16_t remix_color(uint8_t r, uint8_t g, uint8_t b) {
 
@@ -194,7 +207,6 @@ uint16_t remix_color(uint8_t r, uint8_t g, uint8_t b) {
 
 void get_sensor_value(){
 
-	char str[50];
 	uint8_t cmdBuffer[3];
 	uint8_t dataBuffer[8];
 
@@ -216,6 +228,12 @@ void get_sensor_value(){
 
 	uint16_t humidity = (dataBuffer[2]<<8) + dataBuffer[3];
 	h = humidity/10.0;
+
+}
+
+void get_potentiometer_value(){
+
+	potentiometer_val = HAL_ADC_GetValue(&hadc1);
 
 }
 

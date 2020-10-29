@@ -9,6 +9,8 @@
 #include "ILI9341_STM32_Driver.h"
 #include "ILI9341_GFX.h"
 #include "i2c.h"
+#include "adc.h"
+#include "tim.h"
 
 #include "stdio.h"
 #include "string.h"
@@ -24,6 +26,9 @@ uint8_t page_num;
 uint16_t coordinates[2];
 
 uint32_t time;
+
+uint32_t potentiometer_val;
+uint8_t pwm;
 
 float h,t;
 uint8_t step;
@@ -47,9 +52,11 @@ void draw_sensor_value();
 // update
 void update_progress_bars();
 void update_page();
+void update_brightness();
 
 // temperature and humidity
 void get_sensor_value();
+void get_potentiometer_value();
 
 // utility
 uint16_t remix_color(uint8_t r, uint8_t g, uint8_t b);

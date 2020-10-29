@@ -19,6 +19,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "adc.h"
 #include "i2c.h"
 #include "rng.h"
 #include "spi.h"
@@ -101,6 +102,8 @@ int main(void)
   MX_TIM1_Init();
   MX_RNG_Init();
   MX_I2C1_Init();
+  MX_ADC1_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   GUI_init();
   /* USER CODE END 2 */

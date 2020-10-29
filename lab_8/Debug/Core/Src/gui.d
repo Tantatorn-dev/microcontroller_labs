@@ -34,7 +34,8 @@ Core/Src/gui.o: ../Core/Src/gui.c ../Core/Inc/gui.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h \
  ../Core/Inc/main.h ../ILI9341/ILI9341_STM32_Driver.h \
- ../ILI9341/ILI9341_GFX.h ../Core/Inc/me.h
+ ../ILI9341/ILI9341_GFX.h ../Core/Inc/i2c.h ../Core/Inc/main.h \
+ ../Core/Inc/me.h
 
 ../Core/Inc/gui.h:
 
@@ -111,5 +112,9 @@ Core/Src/gui.o: ../Core/Src/gui.c ../Core/Inc/gui.h \
 ../ILI9341/ILI9341_STM32_Driver.h:
 
 ../ILI9341/ILI9341_GFX.h:
+
+../Core/Inc/i2c.h:
+
+../Core/Inc/main.h:
 
 ../Core/Inc/me.h:

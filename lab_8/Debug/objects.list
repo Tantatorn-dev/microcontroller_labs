@@ -1,5 +1,6 @@
 "Core/Src/gpio.o"
 "Core/Src/gui.o"
+"Core/Src/i2c.o"
 "Core/Src/main.o"
 "Core/Src/me.o"
 "Core/Src/rng.o"

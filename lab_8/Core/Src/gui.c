@@ -15,9 +15,14 @@ void GUI_init() {
 
 	time = 0;
 
+	h=30.0;
+	t=40.0;
+	step = 0;
+
 }
 
 void main_system(){
+	get_sensor_value();
 	if(page_num==1){
 		first_page();
 	}
@@ -33,6 +38,7 @@ void first_page() {
 	draw_color_buttons();
 	draw_progress_bars();
 	draw_color_percent();
+	draw_sensor_value();
 
 	// update
 	update_progress_bars();
@@ -70,6 +76,20 @@ void draw_progress_bars() {
 			80 + 50, 240, 120 + 50, LIGHTGREEN);
 	ILI9341_Draw_Filled_Rectangle_Coord(80 + (160 * blue_percent / 100),
 			80 + 100, 240, 120 + 100, LIGHTBLUE);
+
+}
+
+void draw_sensor_value() {
+
+	char str[10];
+
+	sprintf(str,"%.1fC ",t);
+
+	ILI9341_Draw_Text(str, 30, 40, BLACK, 2, WHITE);
+
+	sprintf(str,"%.1f%%RH ",h);
+
+	ILI9341_Draw_Text(str, 230, 40, BLACK, 2, WHITE);
 
 }
 
@@ -169,6 +189,33 @@ uint16_t remix_color(uint8_t r, uint8_t g, uint8_t b) {
 
 		return (((r * RED) / 100) & RED) | (((g * GREEN) / 100) & GREEN)
 				| (((b * BLUE) / 100) & BLUE);
+
+}
+
+void get_sensor_value(){
+
+	char str[50];
+	uint8_t cmdBuffer[3];
+	uint8_t dataBuffer[8];
+
+	cmdBuffer[0] = 0x03;
+	cmdBuffer[1] = 0x00;
+	cmdBuffer[2] = 0x04;
+
+	// wake up sensor
+	HAL_I2C_Master_Transmit(&hi2c1, 0x5c<<1, cmdBuffer, 3, 200);
+	// send reading command
+	HAL_I2C_Master_Transmit(&hi2c1, 0x5c<<1, cmdBuffer, 3, 200);
+
+	HAL_Delay(1);
+
+	HAL_I2C_Master_Receive(&hi2c1, 0x5c<<1, dataBuffer, 8, 200);
+
+	uint16_t temperature = ((dataBuffer[4] & 0x7F)<<8) + dataBuffer[5];
+	t = temperature/10.0;
+
+	uint16_t humidity = (dataBuffer[2]<<8) + dataBuffer[3];
+	h = humidity/10.0;
 
 }
 

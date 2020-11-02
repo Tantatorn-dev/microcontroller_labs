@@ -115,7 +115,6 @@ void draw_color_percent() {
 
 void second_page() {
 
-			ILI9341_Draw_Image( (const char*)me, 3);
 
 			update_page();
 
@@ -131,6 +130,11 @@ void update_page() {
 			if (coordinates[0] > 30 && coordinates[0] < 80
 					&& coordinates[1] < 200 && coordinates[1] > 150) {
 				ILI9341_Fill_Screen(WHITE);
+				ILI9341_Draw_Image( (const char*)me, 3);
+				ILI9341_Draw_Rectangle(210, 10, 100, 100, WHITE);
+				ILI9341_Draw_Text("Tantatorn Suksangwarn", 210, 10, remix_color(red_percent, green_percent, blue_percent), 2, WHITE);
+				ILI9341_Draw_Text("61010402", 210, 30, remix_color(red_percent, green_percent, blue_percent), 2, WHITE);
+				ILI9341_Draw_Text("Group 15", 210, 50, remix_color(red_percent, green_percent, blue_percent), 2, WHITE);
 				page_num = 2;
 				HAL_Delay(200);
 				time = HAL_GetTick();
